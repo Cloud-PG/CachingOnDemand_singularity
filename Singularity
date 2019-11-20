@@ -9,7 +9,8 @@ Start the service with:
 
 %post
     yum -y install epel-release
-    #yum -y install sudo xrootd-server ca-policy-egi-core ca-policy-lcg
+    yum -y install sudo xrootd-server 
+    # ca-policy-egi-core ca-policy-lcg
     #/usr/sbin/fetch-crl -q
 
 %files

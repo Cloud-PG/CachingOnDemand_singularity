@@ -14,7 +14,6 @@ Start the service with:
 
 %files
     config/proxy.cfg /etc/xrootd/xrootd-proxy.cfg
-    config/Authfile-auth /etc/xrootd/Authfile-auth
     scripts/entrypoint.sh /opt
 
 

@@ -6,11 +6,8 @@ Configuration:
 - TODO
 
 %post
-    yum --setopt=tsflags=nodocs -y install epel-release \
-    && yum -y clean all --enablerepo=* \
-    && rm -rf /var/cache/yum \
-    && yum --setopt=tsflags=nodocs -y update \
-         yum install -y xrootd-server
+    yum -y install epel-release
+    yum -y install sudo xrootd-server
 
 %files
     config/proxy.cfg /etc/xrootd/xrootd-proxy.cfg
@@ -21,6 +18,9 @@ Configuration:
     REMOTE_PORT=1024
     PROXY_PORT=1124
     export REMOTE_HOST REMOTE_PORT PROXY_PORT
+
+%post
+    chmod +x /opt/entrypoint.sh
 
 %startscript
     echo -e "Starting XROOTD proxy vs $REMOTE_HOST:$REMOTE_PORT \n Listening on $PROXY_PORT"

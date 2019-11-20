@@ -2,22 +2,21 @@ Bootstrap: docker
 From: cloudpg/centos-7-grid
 
 %help
-Configuration:
-- TODO
+The log directory should have the correct permisions:
+- sudo chown -R 998:996 /var/log/xrootd
+Start the service with:
+- sudo singularity instance start -B /var/log/xrootd/:/var/log/xrootd/ shub://Cloud-PG/CachingOnDemand_singularity:latest proxy
 
 %post
     yum -y install epel-release
-    yum -y install sudo xrootd-server
+    yum -y install sudo xrootd-server ca-policy-egi-core ca-policy-lcg
+    /usr/sbin/fetch-crl -q
 
 %files
     config/proxy.cfg /etc/xrootd/xrootd-proxy.cfg
+    config/Authfile-auth /etc/xrootd/Authfile-auth
     scripts/entrypoint.sh /opt
 
-%environment
-    REMOTE_HOST=xrootd-cms.infn.it
-    REMOTE_PORT=1024
-    PROXY_PORT=1124
-    export REMOTE_HOST REMOTE_PORT PROXY_PORT
 
 %post
     chmod +x /opt/entrypoint.sh
